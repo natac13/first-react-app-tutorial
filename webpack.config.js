@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
     entry: [
         path.join(__dirname, 'app', 'App.js')
-        ],
+    ],
     output: {
         path: path.join(__dirname, 'public', 'assets'),
         filename: 'bundle.js'
@@ -21,5 +21,9 @@ module.exports = {
                 }
             }
         ]
-    }
-}
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ]
+};

@@ -1,13 +1,21 @@
-import React, {Component} from 'react';
+import React, {createClass} from 'react';
+import {RouteHandler} from 'react-router';
 
-class Main extends Component {
-        render() {
-            return (
-                <div>
-                    Hello World
+const Main = createClass({
+    render() {
+        return (
+            <div className="main-container">
+                <nav className="navbar navbar-default" role="navigation">
+                    <div className="col-sm-7 col-sm-offset-2" style={{marginTop: 15}}>
+                        MENUsssss
+                    </div>
+                </nav>
+                <div className="container">
+                    <RouteHandler />
                 </div>
-            );
-        }
-}
+            </div>
+        );
+    }
+});
 
 export default Main;
