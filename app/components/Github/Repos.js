@@ -1,14 +1,14 @@
-import React, {createClass} from 'react';
+import React, { Component }   from 'react';
 
-const Repos = createClass({
+
+class Repos extends Component {
     render() {
         return (
             <div className="">
-                Repooosss!!!!!!!!!!
-                Repos: {this.props.repos.join(';')}
+                Tesing
             </div>
         );
     }
-});
+}
 
 export default Repos;

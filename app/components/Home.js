@@ -1,14 +1,13 @@
-import React, {createClass} from 'react';
+import React, { Component } from 'react';
 
-const Home = createClass({
-
-    render() {
+class Home extends Component{
+    render(){
         return (
-            <h2 className="text-center">
-                Search by GitHub Username Above
-            </h2>
+          <h2 className="text-center">
+            Search by Github Username Above!
+          </h2>
         );
     }
-});
+}
 
 export default Home;

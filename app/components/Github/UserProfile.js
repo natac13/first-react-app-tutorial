@@ -1,15 +1,14 @@
-import React, {createClass} from 'react';
+import React, { Component }   from 'react';
 
-const UserPorfile = createClass({
+
+class UserProfile extends Component {
     render() {
         return (
             <div className="">
-                UserPorfile <br />
-                Username: {this.props.username} <br />
-                Bio: {this.props.bio}
+                Tesing
             </div>
         );
     }
-});
+}
 
-export default UserPorfile;
+export default UserProfile;

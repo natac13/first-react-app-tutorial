@@ -1,14 +1,15 @@
-import React, {createClass} from 'react';
+import React, { Component }   from 'react';
 
-const Notes = createClass({
+class Notes extends Component {
     render() {
         return (
             <div className="">
-                Notessss!
-                Notes: {this.props.notes}
+                Notes: <br />
+                Username: {this.props.username} <br />
+                NOtes: {this.props.notes}
             </div>
         );
     }
-});
+}
 
 export default Notes;

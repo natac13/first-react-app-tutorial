@@ -1,42 +1,62 @@
-import React, {createClass} from 'react';
-import Router               from 'react-router';
-import ReactFireMixin       from 'reactfire';
+import React, { Component }   from 'react';
+import Rebase                 from 're-base';
 
-/*** Components ***/
+
 import UserProfile from './Github/UserProfile';
 import Repos       from './Github/Repos';
 import Notes       from './Notes/Notes';
 
-const Profile = createClass({
-    mixin: [ReactFireMixin],
 
-    getInitialState() {
-        return {
-            notes: ['note1', 'note2'],
-            bio: {name: 'Natac13456'},
-            repos: [1, 2, 3, 4]
+var base = Rebase.createClass('https://resplendent-heat-8246.firebaseio.com/');
+
+
+
+class Profile extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            notes: ['test','note'],
+            bio: {},
+            repos: []
         };
-    },
+    }
 
-    render() {
-        // get username from the URL which is in routes.js; also where the
-        // .username comes from
-        let { username } = this.props.params;
+    init(){
+        const { username } = this.props.params;
+        this.ref = base.bindToState(username, {
+            context: this,
+            asArray: true,
+            state: 'bio'
+        });
 
+    }
+
+    componentDidMount() {
+        this.init();
+    }
+
+    componentWillUnmount() {
+        base.removeBinding(this.ref);
+    }
+
+
+    render(){
+        const { username } = this.props.params;
         return (
-            <div className="row">
-                <div className="col-md-4">
-                    <UserProfile username={username} bio={this.state.bio.name} />
-                </div>
-                <div className="col-md-4">
-                    <Repos username={username} repos={this.state.repos} />
-                </div>
-                <div className="col-md-4">
-                    <Notes username={username} notes={this.state.notes} />
-                </div>
+          <div className="row">
+            <div className="col-md-4">
+                <UserProfile username={username} />
+                {username}
             </div>
+            <div className="col-md-4">
+                <Repos username={username} />
+            </div>
+            <div className="col-md-4">
+                <Notes username={username} notes={this.state.notes} />
+            </div>
+          </div>
         );
     }
-});
+}
 
 export default Profile;
