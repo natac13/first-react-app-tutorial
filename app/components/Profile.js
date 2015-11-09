@@ -1,5 +1,6 @@
-import React, { Component }   from 'react';
-import Rebase                 from 're-base';
+import React, { createClass }   from 'react';
+import Rebase                   from 're-base';
+import Firebase                 from 'firebase';
 
 
 import UserProfile from './Github/UserProfile';
@@ -11,33 +12,36 @@ var base = Rebase.createClass('https://resplendent-heat-8246.firebaseio.com/');
 
 
 
-class Profile extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            notes: ['test','note'],
-            bio: {},
-            repos: []
-        };
-    }
+const Profile = createClass({
 
-    init(){
+    getInitialState() {
+        return {
+            notes: [],
+            bio: {},
+            repos: [1, 2, 3]
+        };
+    },
+
+
+
+    componentDidMount() {
         const { username } = this.props.params;
+        // will bind the notes property to the notes from Firebase base off the
+        // username.
+        // I could not get the normal ReactFirebase to work so I went with Tyler's
+        // re-base wrapper for it
         this.ref = base.bindToState(username, {
             context: this,
             asArray: true,
-            state: 'bio'
+            state: 'notes'
         });
+    },
 
-    }
-
-    componentDidMount() {
-        this.init();
-    }
 
     componentWillUnmount() {
         base.removeBinding(this.ref);
-    }
+
+    },
 
 
     render(){
@@ -45,11 +49,10 @@ class Profile extends Component {
         return (
           <div className="row">
             <div className="col-md-4">
-                <UserProfile username={username} />
-                {username}
+                <UserProfile username={username} bio={this.state.bio} />
             </div>
             <div className="col-md-4">
-                <Repos username={username} />
+                <Repos username={username} repos={this.state.repos} />
             </div>
             <div className="col-md-4">
                 <Notes username={username} notes={this.state.notes} />
@@ -57,6 +60,6 @@ class Profile extends Component {
           </div>
         );
     }
-}
+});
 
 export default Profile;

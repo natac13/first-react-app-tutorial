@@ -8,7 +8,7 @@ module.exports = {
     output: {
         path: buildPath,
         filename: 'bundle.js',
-        publicPath: '/assets/' // need for hot reload
+        publicPath: '/assets/' // need for hot reload. or hit refresh each time
     },
     devServer: {
         inline: true,
@@ -19,7 +19,7 @@ module.exports = {
         host: process.env.HOST,
         port: process.env.PORT
     },
-    devtool: 'eval',
+    devtool: 'source-maps',
     module: {
         loaders: [
             {

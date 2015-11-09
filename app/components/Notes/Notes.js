@@ -1,15 +1,21 @@
-import React, { Component }   from 'react';
+import React, { createClass } from 'react';
+import NotesList              from './NotesList';
 
-class Notes extends Component {
+const Notes = createClass({
+    propTypes: {
+        username: React.PropTypes.string.isRequired,
+        notes: React.PropTypes.array.isRequired
+    },
+
     render() {
+        // NotesList component handles the styling and li elements
         return (
             <div className="">
-                Notes: <br />
-                Username: {this.props.username} <br />
-                NOtes: {this.props.notes}
+                <h2>Notes For: {this.props.username} </h2>
+                <NotesList notes={this.props.notes} />
             </div>
         );
     }
-}
+});
 
 export default Notes;
