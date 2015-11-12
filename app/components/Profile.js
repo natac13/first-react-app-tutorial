@@ -1,6 +1,7 @@
 import React, { createClass }   from 'react';
 import Rebase                   from 're-base';
 import Firebase                 from 'firebase';
+import ReactFireMixin           from 'reactfire'
 
 
 import UserProfile from './Github/UserProfile';
@@ -8,12 +9,12 @@ import Repos       from './Github/Repos';
 import Notes       from './Notes/Notes';
 
 
-var base = Rebase.createClass('https://resplendent-heat-8246.firebaseio.com/');
+// var base = Rebase.createClass('https://resplendent-heat-8246.firebaseio.com/');
 
 
 
 const Profile = createClass({
-
+    mixins: [ReactFireMixin],
     getInitialState() {
         return {
             notes: [],
@@ -30,17 +31,25 @@ const Profile = createClass({
         // username.
         // I could not get the normal ReactFirebase to work so I went with Tyler's
         // re-base wrapper for it
-        this.ref = base.bindToState(username, {
-            context: this,
-            asArray: true,
-            state: 'notes'
-        });
+        // this.ref = base.bindToState(username, {
+        //     context: this,
+        //     asArray: true,
+        //     state: 'notes'
+        // });
+        //
+        //
+        // Able to get the normal Firebase way to work by changing .bindAsArray()
+        // to .bindAsObject()!!!
+        console.log(typeof username);
+        this.ref = new Firebase('https://resplendent-heat-8246.firebaseio.com/');
+        var childRef = this.ref.child(username);
+        this.bindAsObject(childRef, 'notes');
     },
 
 
     componentWillUnmount() {
-        base.removeBinding(this.ref);
-
+        // base.removeBinding(this.ref);
+        this.unbind('notes');
     },
 
 

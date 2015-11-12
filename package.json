@@ -4,7 +4,7 @@
   "description": "first react app tutorial by Tyler McGinnis on Egghead.io",
   "main": "server.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --content-base public/ ",
+    "start": "webpack-dev-server --progress --colors  ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
