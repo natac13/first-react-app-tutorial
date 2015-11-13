@@ -1,7 +1,7 @@
 import React, { createClass }   from 'react';
 import Rebase                   from 're-base';
 import Firebase                 from 'firebase';
-import ReactFireMixin           from 'reactfire'
+import ReactFireMixin           from 'reactfire';
 
 
 import UserProfile from './Github/UserProfile';
@@ -29,27 +29,37 @@ const Profile = createClass({
         const { username } = this.props.params;
         // will bind the notes property to the notes from Firebase base off the
         // username.
-        // I could not get the normal ReactFirebase to work so I went with Tyler's
-        // re-base wrapper for it
         // this.ref = base.bindToState(username, {
         //     context: this,
         //     asArray: true,
         //     state: 'notes'
         // });
-        //
-        //
+
+
         // Able to get the normal Firebase way to work by changing .bindAsArray()
         // to .bindAsObject()!!!
-        console.log(typeof username);
         this.ref = new Firebase('https://resplendent-heat-8246.firebaseio.com/');
-        var childRef = this.ref.child(username);
+        const childRef = this.ref.child(username);
         this.bindAsObject(childRef, 'notes');
+        console.log(this.state.notes);
     },
 
 
     componentWillUnmount() {
         // base.removeBinding(this.ref);
         this.unbind('notes');
+    },
+
+    /**
+     * Handle dealing with the state of the app in the component where the state
+     * lives and then this functions is passed down through the child components
+     * to the AddNote.js component which utilizes the function on a button.
+     * @param  {string} newNote the input from the user is obtained by the React
+     * refs on the HTML tag and using this.refs.whatever.value to get the value
+     */
+    handleAddNote(newNote) {
+        this.ref.child(this.props.params.username)
+            .set(this.state.notes.concat([newNote]));
     },
 
 
@@ -64,7 +74,11 @@ const Profile = createClass({
                 <Repos username={username} repos={this.state.repos} />
             </div>
             <div className="col-md-4">
-                <Notes username={username} notes={this.state.notes} />
+                <Notes
+                    username={username}
+                    notes={this.state.notes}
+                    addNote={this.handleAddNote}
+                />
             </div>
           </div>
         );
