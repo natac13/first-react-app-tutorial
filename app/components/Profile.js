@@ -44,16 +44,13 @@ const Profile = createClass({
         // this.bindAsObject(childRef, 'notes');
 
 
-        console.log(this.state.repos);
 
         helpers.getGithubInfo(username)
             .then((dataObj) => {
-                console.log(dataObj.repos);
                 this.setState({
                     bio: dataObj.bio,
                     repos: dataObj.repos
                 });
-                console.log(`state ${this.state.bio}`);
             });
     },
 
@@ -67,6 +64,7 @@ const Profile = createClass({
     },
 
     componentWillReceiveProps(){
+        // this.unbind('notes');
         base.removeBinding(this.ref);
         this.init();
     },
