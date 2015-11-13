@@ -2,7 +2,7 @@
 
 var path = require('path');
 
-var buildPath = path.join(__dirname, 'public');
+var buildPath = path.join(__dirname, 'public', 'assets');
 module.exports = {
     entry: './app/App.js',
     output: {

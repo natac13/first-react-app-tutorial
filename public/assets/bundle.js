@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/assets/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -24278,11 +24278,11 @@
 	
 	var _Main2 = _interopRequireDefault(_Main);
 	
-	var _Home = __webpack_require__(209);
+	var _Home = __webpack_require__(210);
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Profile = __webpack_require__(210);
+	var _Profile = __webpack_require__(211);
 	
 	var _Profile2 = _interopRequireDefault(_Profile);
 	
@@ -24301,7 +24301,7 @@
 /* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
@@ -24313,6 +24313,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _SearchGithub = __webpack_require__(209);
+	
+	var _SearchGithub2 = _interopRequireDefault(_SearchGithub);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24320,6 +24324,14 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	/**
+	 * https://github.com/rackt/react-router/blob/master/docs/API.md#route-components
+	 * this is a route component since it is served up by the route.js file and the
+	 * react-router.
+	 * The child components are not route components and therefore need either the
+	 * mixin version or to just pass the function down the component chain.
+	 */
 	
 	var Main = (function (_React$Component) {
 	    _inherits(Main, _React$Component);
@@ -24331,23 +24343,23 @@
 	    }
 	
 	    _createClass(Main, [{
-	        key: "render",
+	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                "div",
-	                { className: "main-container" },
+	                'div',
+	                { className: 'main-container' },
 	                _react2.default.createElement(
-	                    "nav",
-	                    { className: "navbar navbar-default", role: "navigation" },
+	                    'nav',
+	                    { className: 'navbar navbar-default', role: 'navigation' },
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "col-sm-7 col-sm-offset-2", style: { marginTop: 15 } },
-	                        "MENU"
+	                        'div',
+	                        { className: 'col-sm-7 col-sm-offset-2', style: { marginTop: 15 } },
+	                        _react2.default.createElement(_SearchGithub2.default, { history: this.props.history })
 	                    )
 	                ),
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "container" },
+	                    'div',
+	                    { className: 'container' },
 	                    this.props.children
 	                )
 	            );
@@ -24361,6 +24373,61 @@
 
 /***/ },
 /* 209 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SearchGithub = (0, _react.createClass)({
+	    handleSubmit: function handleSubmit() {
+	        // https://github.com/rackt/react-router/blob/master/docs/API.md#history-mixin
+	        var history = this.props.history;
+	
+	        var username = this.refs.username.value;
+	        // https://github.com/rackt/history/blob/master/docs/GettingStarted.md#navigation
+	        history.pushState(null, "profile/" + username);
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "col-sm-12" },
+	            _react2.default.createElement(
+	                "form",
+	                { onSubmit: this.handleSubmit },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "form-group col-sm-7" },
+	                    _react2.default.createElement("input", { type: "text", className: "form-control",
+	                        ref: "username" })
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "form-group col-sm-5" },
+	                    _react2.default.createElement(
+	                        "button",
+	                        { type: "sumbit",
+	                            className: "btn btn-block btn-primary" },
+	                        "Search Github"
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+	
+	exports.default = SearchGithub;
+
+/***/ },
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -24409,12 +24476,10 @@
 	exports.default = Home;
 
 /***/ },
-/* 210 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -24424,97 +24489,157 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reBase = __webpack_require__(211);
+	var _reBase = __webpack_require__(212);
 	
 	var _reBase2 = _interopRequireDefault(_reBase);
 	
+	var _firebase = __webpack_require__(214);
+	
+	var _firebase2 = _interopRequireDefault(_firebase);
+	
+	var _reactfire = __webpack_require__(215);
+	
+	var _reactfire2 = _interopRequireDefault(_reactfire);
+	
+	var _UserProfile = __webpack_require__(216);
+	
+	var _UserProfile2 = _interopRequireDefault(_UserProfile);
+	
+	var _Repos = __webpack_require__(217);
+	
+	var _Repos2 = _interopRequireDefault(_Repos);
+	
+	var _Notes = __webpack_require__(218);
+	
+	var _Notes2 = _interopRequireDefault(_Notes);
+	
+	var _helpers = __webpack_require__(221);
+	
+	var _helpers2 = _interopRequireDefault(_helpers);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	/*** components ***/
 	
 	var base = _reBase2.default.createClass('https://resplendent-heat-8246.firebaseio.com/');
 	
-	var Profile = (function (_React$Component) {
-	    _inherits(Profile, _React$Component);
+	/*** API helper ***/
 	
-	    function Profile(props) {
-	        _classCallCheck(this, Profile);
-	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Profile).call(this, props));
-	
-	        _this.state = {
+	var Profile = (0, _react.createClass)({
+	    mixins: [_reactfire2.default],
+	    getInitialState: function getInitialState() {
+	        return {
 	            notes: [],
 	            bio: {},
-	            repos: []
+	            repos: [1]
 	        };
-	        return _this;
-	    }
+	    },
+	    init: function init() {
+	        var _this = this;
 	
-	    _createClass(Profile, [{
-	        key: 'init',
-	        value: function init() {
-	            var username = this.props.params.username;
+	        var username = this.props.params.username;
+	        // will bind the notes property to the notes from Firebase base off the
+	        // username.
 	
-	            this.ref = base.bindToState(username, {
-	                context: this,
-	                asArray: true,
-	                state: 'notes'
+	        this.ref = base.bindToState(username, {
+	            context: this,
+	            asArray: true,
+	            state: 'notes'
+	        });
+	
+	        // Able to get the normal Firebase way to work by changing .bindAsArray()
+	        // to .bindAsObject()!!!
+	        //
+	        // NOT REALLY working since it changes the state to an object I think.
+	        // this.ref = new Firebase('https://resplendent-heat-8246.firebaseio.com/');
+	        // const childRef = this.ref.child(username);
+	        // this.bindAsObject(childRef, 'notes');
+	
+	        _helpers2.default.getGithubInfo(username).then(function (_ref) {
+	            var repos = _ref.repos;
+	            var bio = _ref.bio;
+	
+	            _this.setState({
+	                bio: bio,
+	                repos: repos
 	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.init();
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            base.removeBinding(this.ref);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var username = this.props.params.username;
+	        });
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.init();
+	    },
+	    componentWillUnmount: function componentWillUnmount() {
+	        base.removeBinding(this.ref);
+	        // this.unbind('notes');
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps() {
+	        // this.unbind('notes');
+	        base.removeBinding(this.ref);
+	        this.init();
+	    },
 	
-	            return _react2.default.createElement(
+	    /**
+	     * Handle dealing with the state of the app in the component where the state
+	     * lives and then this functions is passed down through the child components
+	     * to the AddNote.js component which utilizes the function on a button.
+	     * @param  {string} newNote the input from the user is obtained by the React
+	     * refs on the HTML tag and using this.refs.whatever.value to get the value
+	     */
+	    handleAddNote: function handleAddNote(newNote) {
+	        // this.ref.child(this.props.params.username)
+	        //     .set(this.state.notes.concat([newNote]));
+	        var username = this.props.params.username;
+	
+	        base.post(username, {
+	            data: this.state.notes.concat([newNote])
+	        });
+	    },
+	    render: function render() {
+	        var username = this.props.params.username;
+	
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
 	                'div',
-	                { className: 'row' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'col-md-4' },
-	                    username,
-	                    '!!!'
-	                ),
-	                _react2.default.createElement('div', { className: 'col-md-4' }),
-	                _react2.default.createElement('div', { className: 'col-md-4' })
-	            );
-	        }
-	    }]);
-	
-	    return Profile;
-	})(_react2.default.Component);
+	                { className: 'col-md-4' },
+	                _react2.default.createElement(_UserProfile2.default, { username: username, bio: this.state.bio })
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'col-md-4' },
+	                _react2.default.createElement(_Repos2.default, { username: username, repos: this.state.repos })
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'col-md-4' },
+	                _react2.default.createElement(_Notes2.default, {
+	                    username: username,
+	                    notes: this.state.notes,
+	                    addNote: this.handleAddNote
+	                })
+	            )
+	        );
+	    }
+	});
 	
 	exports.default = Profile;
-
-/***/ },
-/* 211 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(212);
-	
-
 
 /***/ },
 /* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __webpack_require__(213);
+	
+
+
+/***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
 	(function webpackUniversalModuleDefinition(root, factory) {
 		if(true)
-			module.exports = factory(__webpack_require__(213));
+			module.exports = factory(__webpack_require__(214));
 		else if(typeof define === 'function' && define.amd)
 			define(["firebase"], factory);
 		else {
@@ -24959,7 +25084,7 @@
 	;
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports) {
 
 	/*! @license Firebase v2.3.1
@@ -25231,6 +25356,1597 @@
 	U.prototype.Ve=function(a,b){x("Firebase.resetPassword",2,2,arguments.length);ng("Firebase.resetPassword",1,a,!1);og("Firebase.resetPassword",a,"email");A("Firebase.resetPassword",2,b,!1);this.k.M.Ve(a,b)};U.prototype.resetPassword=U.prototype.Ve;})();
 	
 	module.exports = Firebase;
+
+
+/***/ },
+/* 215 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	 * ReactFire is an open-source JavaScript library that allows you to add a
+	 * realtime data source to your React apps by providing an easy way to let
+	 * Firebase populate the state of React components.
+	 *
+	 * ReactFire 0.5.1
+	 * https://github.com/firebase/reactfire/
+	 * License: MIT
+	 */
+	/* eslint "strict": [2, "function"] */
+	(function(root, factory) {
+	  'use strict';
+	
+	  /* istanbul ignore next */
+	  if (true) {
+	    // AMD
+	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
+	      return (root.ReactFireMixin = factory());
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	  } else if (typeof exports === 'object') {
+	    // CommonJS
+	    module.exports = factory();
+	  } else {
+	    // Global variables
+	    root.ReactFireMixin = factory();
+	  }
+	}(this, function() {
+	  'use strict';
+	
+	  /*************/
+	  /*  HELPERS  */
+	  /*************/
+	  /**
+	   * Returns the index of the key in the list. If an item with the key is not in the list, -1 is
+	   * returned.
+	   *
+	   * @param {Array<any>} list A list of items.
+	   * @param {string} key The key for which to search.
+	   * @return {number} The index of the item which has the provided key or -1 if no items have the
+	   * provided key.
+	   */
+	  function _indexForKey(list, key) {
+	    for (var i = 0, length = list.length; i < length; ++i) {
+	      if (list[i]['.key'] === key) {
+	        return i;
+	      }
+	    }
+	
+	    /* istanbul ignore next */
+	    return -1;
+	  }
+	
+	  /**
+	   * Throws a formatted error message.
+	   *
+	   * @param {string} message The error message to throw.
+	   */
+	  function _throwError(message) {
+	    throw new Error('ReactFire: ' + message);
+	  }
+	
+	  /**
+	   * Validates the name of the variable which is being bound.
+	   *
+	   * @param {string} bindVar The variable which is being bound.
+	   */
+	  function _validateBindVar(bindVar) {
+	    var errorMessage;
+	
+	    if (typeof bindVar !== 'string') {
+	      errorMessage = 'Bind variable must be a string. Got: ' + bindVar;
+	    } else if (bindVar.length === 0) {
+	      errorMessage = 'Bind variable must be a non-empty string. Got: ""';
+	    } else if (bindVar.length > 768) {
+	      // Firebase can only stored child paths up to 768 characters
+	      errorMessage = 'Bind variable is too long to be stored in Firebase. Got: ' + bindVar;
+	    } else if (/[\[\].#$\/\u0000-\u001F\u007F]/.test(bindVar)) {
+	      // Firebase does not allow node keys to contain the following characters
+	      errorMessage = 'Bind variable cannot contain any of the following characters: . # $ ] [ /. Got: ' + bindVar;
+	    }
+	
+	    if (typeof errorMessage !== 'undefined') {
+	      _throwError(errorMessage);
+	    }
+	  }
+	
+	  /**
+	   * Creates a new record given a key-value pair.
+	   *
+	   * @param {string} key The new record's key.
+	   * @param {any} value The new record's value.
+	   * @return {Object} The new record.
+	   */
+	  function _createRecord(key, value) {
+	    var record = {};
+	    if (typeof value === 'object' && value !== null) {
+	      record = value;
+	    } else {
+	      record['.value'] = value;
+	    }
+	    record['.key'] = key;
+	
+	    return record;
+	  }
+	
+	
+	  /******************************/
+	  /*  BIND AS OBJECT LISTENERS  */
+	  /******************************/
+	  /**
+	   * 'value' listener which updates the value of the bound state variable.
+	   *
+	   * @param {string} bindVar The state variable to which the data is being bound.
+	   * @param {Firebase.DataSnapshot} snapshot A snapshot of the data being bound.
+	   */
+	  function _objectValue(bindVar, snapshot) {
+	    var key = snapshot.key();
+	    var value = snapshot.val();
+	
+	    this.data[bindVar] = _createRecord(key, value);
+	
+	    this.setState(this.data);
+	  }
+	
+	
+	  /*****************************/
+	  /*  BIND AS ARRAY LISTENERS  */
+	  /*****************************/
+	  /**
+	   * 'child_added' listener which adds a new record to the bound array.
+	   *
+	   * @param {string} bindVar The state variable to which the data is being bound.
+	   * @param {Firebase.DataSnapshot} snapshot A snapshot of the data being bound.
+	   * @param {string|null} previousChildKey The key of the child after which the provided snapshot
+	   * is positioned; null if the provided snapshot is in the first position.
+	   */
+	  function _arrayChildAdded(bindVar, snapshot, previousChildKey) {
+	    var key = snapshot.key();
+	    var value = snapshot.val();
+	    var array = this.data[bindVar];
+	
+	    // Determine where to insert the new record
+	    var insertionIndex;
+	    if (previousChildKey === null) {
+	      insertionIndex = 0;
+	    } else {
+	      var previousChildIndex = _indexForKey(array, previousChildKey);
+	      insertionIndex = previousChildIndex + 1;
+	    }
+	
+	    // Add the new record to the array
+	    array.splice(insertionIndex, 0, _createRecord(key, value));
+	
+	    // Update state
+	    this.setState(this.data);
+	  }
+	
+	  /**
+	   * 'child_removed' listener which removes a record from the bound array.
+	   *
+	   * @param {string} bindVar The state variable to which the data is bound.
+	   * @param {Firebase.DataSnapshot} snapshot A snapshot of the bound data.
+	   */
+	  function _arrayChildRemoved(bindVar, snapshot) {
+	    var array = this.data[bindVar];
+	
+	    // Look up the record's index in the array
+	    var index = _indexForKey(array, snapshot.key());
+	
+	    // Splice out the record from the array
+	    array.splice(index, 1);
+	
+	    // Update state
+	    this.setState(this.data);
+	  }
+	
+	  /**
+	   * 'child_changed' listener which updates a record's value in the bound array.
+	   *
+	   * @param {string} bindVar The state variable to which the data is bound.
+	   * @param {Firebase.DataSnapshot} snapshot A snapshot of the data to bind.
+	   */
+	  function _arrayChildChanged(bindVar, snapshot) {
+	    var key = snapshot.key();
+	    var value = snapshot.val();
+	    var array = this.data[bindVar];
+	
+	    // Look up the record's index in the array
+	    var index = _indexForKey(array, key);
+	
+	    // Update the record's value in the array
+	    array[index] = _createRecord(key, value);
+	
+	    // Update state
+	    this.setState(this.data);
+	  }
+	
+	  /**
+	   * 'child_moved' listener which updates a record's position in the bound array.
+	   *
+	   * @param {string} bindVar The state variable to which the data is bound.
+	   * @param {Firebase.DataSnapshot} snapshot A snapshot of the bound data.
+	   * @param {string|null} previousChildKey The key of the child after which the provided snapshot
+	   * is positioned; null if the provided snapshot is in the first position.
+	   */
+	  function _arrayChildMoved(bindVar, snapshot, previousChildKey) {
+	    var key = snapshot.key();
+	    var array = this.data[bindVar];
+	
+	    // Look up the record's index in the array
+	    var currentIndex = _indexForKey(array, key);
+	
+	    // Splice out the record from the array
+	    var record = array.splice(currentIndex, 1)[0];
+	
+	    // Determine where to re-insert the record
+	    var insertionIndex;
+	    if (previousChildKey === null) {
+	      insertionIndex = 0;
+	    } else {
+	      var previousChildIndex = _indexForKey(array, previousChildKey);
+	      insertionIndex = previousChildIndex + 1;
+	    }
+	
+	    // Re-insert the record into the array
+	    array.splice(insertionIndex, 0, record);
+	
+	    // Update state
+	    this.setState(this.data);
+	  }
+	
+	
+	  /*************/
+	  /*  BINDING  */
+	  /*************/
+	  /**
+	   * Creates a binding between Firebase and the inputted bind variable as either an array or
+	   * an object.
+	   *
+	   * @param {Firebase} firebaseRef The Firebase ref whose data to bind.
+	   * @param {string} bindVar The state variable to which to bind the data.
+	   * @param {function} cancelCallback The Firebase reference's cancel callback.
+	   * @param {boolean} bindAsArray Whether or not to bind as an array or object.
+	   */
+	  function _bind(firebaseRef, bindVar, cancelCallback, bindAsArray) {
+	    if (Object.prototype.toString.call(firebaseRef) !== '[object Object]') {
+	      _throwError('Invalid Firebase reference');
+	    }
+	
+	    _validateBindVar(bindVar);
+	
+	    if (typeof this.firebaseRefs[bindVar] !== 'undefined') {
+	      _throwError('this.state.' + bindVar + ' is already bound to a Firebase reference');
+	    }
+	
+	    // Keep track of the Firebase reference we are setting up listeners on
+	    this.firebaseRefs[bindVar] = firebaseRef.ref();
+	
+	    if (bindAsArray) {
+	      // Set initial state to an empty array
+	      this.data[bindVar] = [];
+	      this.setState(this.data);
+	
+	      // Add listeners for all 'child_*' events
+	      this.firebaseListeners[bindVar] = {
+	        child_added: firebaseRef.on('child_added', _arrayChildAdded.bind(this, bindVar), cancelCallback),
+	        child_removed: firebaseRef.on('child_removed', _arrayChildRemoved.bind(this, bindVar), cancelCallback),
+	        child_changed: firebaseRef.on('child_changed', _arrayChildChanged.bind(this, bindVar), cancelCallback),
+	        child_moved: firebaseRef.on('child_moved', _arrayChildMoved.bind(this, bindVar), cancelCallback)
+	      };
+	    } else {
+	      // Add listener for 'value' event
+	      this.firebaseListeners[bindVar] = {
+	        value: firebaseRef.on('value', _objectValue.bind(this, bindVar), cancelCallback)
+	      };
+	    }
+	  }
+	
+	
+	  var ReactFireMixin = {
+	    /********************/
+	    /*  MIXIN LIFETIME  */
+	    /********************/
+	    /**
+	     * Initializes the Firebase refs and listeners arrays.
+	     **/
+	    componentWillMount: function() {
+	      this.data = {};
+	      this.firebaseRefs = {};
+	      this.firebaseListeners = {};
+	    },
+	
+	    /**
+	     * Unbinds any remaining Firebase listeners.
+	     */
+	    componentWillUnmount: function() {
+	      for (var bindVar in this.firebaseRefs) {
+	        /* istanbul ignore else */
+	        if (this.firebaseRefs.hasOwnProperty(bindVar)) {
+	          this.unbind(bindVar);
+	        }
+	      }
+	    },
+	
+	
+	    /*************/
+	    /*  BINDING  */
+	    /*************/
+	    /**
+	     * Creates a binding between Firebase and the inputted bind variable as an array.
+	     *
+	     * @param {Firebase} firebaseRef The Firebase ref whose data to bind.
+	     * @param {string} bindVar The state variable to which to bind the data.
+	     * @param {function} cancelCallback The Firebase reference's cancel callback.
+	     */
+	    bindAsArray: function(firebaseRef, bindVar, cancelCallback) {
+	      var bindPartial = _bind.bind(this);
+	      bindPartial(firebaseRef, bindVar, cancelCallback, /* bindAsArray */ true);
+	    },
+	
+	    /**
+	     * Creates a binding between Firebase and the inputted bind variable as an object.
+	     *
+	     * @param {Firebase} firebaseRef The Firebase ref whose data to bind.
+	     * @param {string} bindVar The state variable to which to bind the data.
+	     * @param {function} cancelCallback The Firebase reference's cancel callback.
+	     */
+	    bindAsObject: function(firebaseRef, bindVar, cancelCallback) {
+	      var bindPartial = _bind.bind(this);
+	      bindPartial(firebaseRef, bindVar, cancelCallback, /* bindAsArray */ false);
+	    },
+	
+	    /**
+	     * Removes the binding between Firebase and the inputted bind variable.
+	     *
+	     * @param {string} bindVar The state variable to which the data is bound.
+	     * @param {function} callback Called when the data is unbound and the state has been updated.
+	     */
+	    unbind: function(bindVar, callback) {
+	      _validateBindVar(bindVar);
+	
+	      if (typeof this.firebaseRefs[bindVar] === 'undefined') {
+	        _throwError('this.state.' + bindVar + ' is not bound to a Firebase reference');
+	      }
+	
+	      // Turn off all Firebase listeners
+	      for (var event in this.firebaseListeners[bindVar]) {
+	        /* istanbul ignore else */
+	        if (this.firebaseListeners[bindVar].hasOwnProperty(event)) {
+	          var offListener = this.firebaseListeners[bindVar][event];
+	          this.firebaseRefs[bindVar].off(event, offListener);
+	        }
+	      }
+	      delete this.firebaseRefs[bindVar];
+	      delete this.firebaseListeners[bindVar];
+	
+	      // Update state
+	      var newState = {};
+	      newState[bindVar] = undefined;
+	      this.setState(newState, callback);
+	    }
+	  };
+	
+	  return ReactFireMixin;
+	}));
+
+
+/***/ },
+/* 216 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var UserProfile = (0, _react.createClass)({
+	    // These are to make sure the data is being passed in so the component can
+	    // render properly. Will get a warning in the console is there is something
+	    // missing or not the correct type.
+	    propTypes: {
+	        username: _react2.default.PropTypes.string.isRequired,
+	        bio: _react2.default.PropTypes.object.isRequired
+	    },
+	
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "" },
+	            _react2.default.createElement(
+	                "h1",
+	                null,
+	                " ",
+	                this.props.username,
+	                " "
+	            ),
+	            this.props.bio.login
+	        );
+	    }
+	});
+	
+	exports.default = UserProfile;
+
+/***/ },
+/* 217 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Repos = (0, _react.createClass)({
+	    // These are to make sure the data is being passed in so the component can
+	    // render properly. Will get a warning in the console is there is something
+	    // missing or not the correct type.
+	    propTypes: {
+	        username: _react2.default.PropTypes.string.isRequired,
+	        repos: _react2.default.PropTypes.array.isRequired
+	    },
+	
+	    // This way what was causing the error about React not accepting objects
+	    // and to use createFragment or an array to fix.
+	    render: function render() {
+	        var repos = this.props.repos.map(function (repo, index) {
+	            return _react2.default.createElement(
+	                "li",
+	                { className: "list-group-item", key: index },
+	                repo.html_url && _react2.default.createElement(
+	                    "h4",
+	                    null,
+	                    _react2.default.createElement(
+	                        "a",
+	                        { href: repo.html_url },
+	                        repo.name
+	                    )
+	                ),
+	                repo.description && _react2.default.createElement(
+	                    "p",
+	                    null,
+	                    " ",
+	                    repo.description
+	                )
+	            );
+	        });
+	        return _react2.default.createElement(
+	            "div",
+	            null,
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                " User Repos "
+	            ),
+	            _react2.default.createElement(
+	                "ul",
+	                { className: "list-group" },
+	                repos
+	            )
+	        );
+	    }
+	});
+	
+	exports.default = Repos;
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _NotesList = __webpack_require__(219);
+	
+	var _NotesList2 = _interopRequireDefault(_NotesList);
+	
+	var _AddNote = __webpack_require__(220);
+	
+	var _AddNote2 = _interopRequireDefault(_AddNote);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Notes = (0, _react.createClass)({
+	    propTypes: {
+	        username: _react2.default.PropTypes.string.isRequired,
+	        notes: _react2.default.PropTypes.array.isRequired,
+	        addNote: _react2.default.PropTypes.func.isRequired
+	    },
+	
+	    render: function render() {
+	        // NotesList component handles the styling and li elements
+	        return _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	                'h2',
+	                null,
+	                'Notes For: ',
+	                this.props.username,
+	                ' '
+	            ),
+	            _react2.default.createElement(_AddNote2.default, { addNote: this.props.addNote, username: this.props.username }),
+	            _react2.default.createElement(_NotesList2.default, { notes: this.props.notes })
+	        );
+	    }
+	});
+	
+	exports.default = Notes;
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NotesList = (0, _react.createClass)({
+	    render: function render() {
+	        console.log(this.props.notes);
+	        var notes = this.props.notes.map(function (note, index) {
+	            return _react2.default.createElement(
+	                "li",
+	                { className: "list-group-item", key: index },
+	                note
+	            );
+	        });
+	        return _react2.default.createElement(
+	            "ul",
+	            { className: "list-group" },
+	            notes
+	        );
+	    }
+	});
+	
+	exports.default = NotesList;
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var AddNote = (0, _react.createClass)({
+	    propTypes: {
+	        username: _react2.default.PropTypes.string.isRequired,
+	        addNote: _react2.default.PropTypes.func.isRequired
+	    },
+	
+	    /**
+	     * finds the input value via the refs tag and clears it then passed the
+	     * captured valued to the handleAddNote function that was passed down
+	     * from the Profile.js component where the state lives.
+	     * @return {[type]} [description]
+	     */
+	    handleSubmit: function handleSubmit() {
+	        var newNote = this.refs.note.value;
+	        this.refs.note.value = '';
+	        this.props.addNote(newNote);
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'input-group' },
+	            _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'note',
+	                placeholder: 'Add New Note' }),
+	            _react2.default.createElement(
+	                'span',
+	                { className: 'input-group-btn' },
+	                _react2.default.createElement(
+	                    'button',
+	                    { className: 'btn btn-default', type: 'button',
+	                        onClick: this.handleSubmit },
+	                    'Submit'
+	                )
+	            )
+	        );
+	    }
+	});
+	
+	exports.default = AddNote;
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _axios = __webpack_require__(222);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var getRepos = function getRepos(username) {
+	    return _axios2.default.get('https://api.github.com/users/' + username + '/repos');
+	};
+	
+	var getUserInfo = function getUserInfo(username) {
+	    return _axios2.default.get('https://api.github.com/users/' + username);
+	};
+	
+	var helpers = {
+	    getGithubInfo: function getGithubInfo(username) {
+	        return _axios2.default.all([getRepos(username), getUserInfo(username)]).then(function transferDataOut(_ref) {
+	            var _ref2 = _slicedToArray(_ref, 2);
+	
+	            var repos = _ref2[0];
+	            var bio = _ref2[1];
+	
+	            return {
+	                repos: repos.data,
+	                bio: bio.data
+	            };
+	        });
+	    }
+	};
+	
+	// var helpers = {
+	//   getGithubInfo(username){
+	//     return axios.all([getRepos(username), getUserInfo(username)])
+	//       .then((arr) => {
+	//         return {
+	//           repos: arr[0].data,
+	//           bio: arr[1].data
+	//         };
+	//       });
+	//   }
+	// };
+	exports.default = helpers;
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(223);
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var defaults = __webpack_require__(224);
+	var utils = __webpack_require__(225);
+	var dispatchRequest = __webpack_require__(226);
+	var InterceptorManager = __webpack_require__(233);
+	
+	var axios = module.exports = function (config) {
+	  // Allow for axios('example/url'[, config]) a la fetch API
+	  if (typeof config === 'string') {
+	    config = utils.merge({
+	      url: arguments[0]
+	    }, arguments[1]);
+	  }
+	
+	  config = utils.merge({
+	    method: 'get',
+	    headers: {},
+	    timeout: defaults.timeout,
+	    transformRequest: defaults.transformRequest,
+	    transformResponse: defaults.transformResponse
+	  }, config);
+	
+	  // Don't allow overriding defaults.withCredentials
+	  config.withCredentials = config.withCredentials || defaults.withCredentials;
+	
+	  // Hook up interceptors middleware
+	  var chain = [dispatchRequest, undefined];
+	  var promise = Promise.resolve(config);
+	
+	  axios.interceptors.request.forEach(function (interceptor) {
+	    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+	  });
+	
+	  axios.interceptors.response.forEach(function (interceptor) {
+	    chain.push(interceptor.fulfilled, interceptor.rejected);
+	  });
+	
+	  while (chain.length) {
+	    promise = promise.then(chain.shift(), chain.shift());
+	  }
+	
+	  return promise;
+	};
+	
+	// Expose defaults
+	axios.defaults = defaults;
+	
+	// Expose all/spread
+	axios.all = function (promises) {
+	  return Promise.all(promises);
+	};
+	axios.spread = __webpack_require__(234);
+	
+	// Expose interceptors
+	axios.interceptors = {
+	  request: new InterceptorManager(),
+	  response: new InterceptorManager()
+	};
+	
+	// Provide aliases for supported request methods
+	(function () {
+	  function createShortMethods() {
+	    utils.forEach(arguments, function (method) {
+	      axios[method] = function (url, config) {
+	        return axios(utils.merge(config || {}, {
+	          method: method,
+	          url: url
+	        }));
+	      };
+	    });
+	  }
+	
+	  function createShortMethodsWithData() {
+	    utils.forEach(arguments, function (method) {
+	      axios[method] = function (url, data, config) {
+	        return axios(utils.merge(config || {}, {
+	          method: method,
+	          url: url,
+	          data: data
+	        }));
+	      };
+	    });
+	  }
+	
+	  createShortMethods('delete', 'get', 'head');
+	  createShortMethodsWithData('post', 'put', 'patch');
+	})();
+
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var utils = __webpack_require__(225);
+	
+	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
+	var DEFAULT_CONTENT_TYPE = {
+	  'Content-Type': 'application/x-www-form-urlencoded'
+	};
+	
+	module.exports = {
+	  transformRequest: [function (data, headers) {
+	    if(utils.isFormData(data)) {
+	      return data;
+	    }
+	    if (utils.isArrayBuffer(data)) {
+	      return data;
+	    }
+	    if (utils.isArrayBufferView(data)) {
+	      return data.buffer;
+	    }
+	    if (utils.isObject(data) && !utils.isFile(data) && !utils.isBlob(data)) {
+	      // Set application/json if no Content-Type has been specified
+	      if (!utils.isUndefined(headers)) {
+	        utils.forEach(headers, function (val, key) {
+	          if (key.toLowerCase() === 'content-type') {
+	            headers['Content-Type'] = val;
+	          }
+	        });
+	
+	        if (utils.isUndefined(headers['Content-Type'])) {
+	          headers['Content-Type'] = 'application/json;charset=utf-8';
+	        }
+	      }
+	      return JSON.stringify(data);
+	    }
+	    return data;
+	  }],
+	
+	  transformResponse: [function (data) {
+	    if (typeof data === 'string') {
+	      data = data.replace(PROTECTION_PREFIX, '');
+	      try {
+	        data = JSON.parse(data);
+	      } catch (e) { /* Ignore */ }
+	    }
+	    return data;
+	  }],
+	
+	  headers: {
+	    common: {
+	      'Accept': 'application/json, text/plain, */*'
+	    },
+	    patch: utils.merge(DEFAULT_CONTENT_TYPE),
+	    post: utils.merge(DEFAULT_CONTENT_TYPE),
+	    put: utils.merge(DEFAULT_CONTENT_TYPE)
+	  },
+	
+	  timeout: 0,
+	
+	  xsrfCookieName: 'XSRF-TOKEN',
+	  xsrfHeaderName: 'X-XSRF-TOKEN'
+	};
+
+
+/***/ },
+/* 225 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	/*global toString:true*/
+	
+	// utils is a library of generic helper functions non-specific to axios
+	
+	var toString = Object.prototype.toString;
+	
+	/**
+	 * Determine if a value is an Array
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is an Array, otherwise false
+	 */
+	function isArray(val) {
+	  return toString.call(val) === '[object Array]';
+	}
+	
+	/**
+	 * Determine if a value is an ArrayBuffer
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+	 */
+	function isArrayBuffer(val) {
+	  return toString.call(val) === '[object ArrayBuffer]';
+	}
+	
+	/**
+	 * Determine if a value is a FormData
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is an FormData, otherwise false
+	 */
+	function isFormData(val) {
+	  return toString.call(val) === '[object FormData]';
+	}
+	
+	/**
+	 * Determine if a value is a view on an ArrayBuffer
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+	 */
+	function isArrayBufferView(val) {
+	  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+	    return ArrayBuffer.isView(val);
+	  } else {
+	    return (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+	  }
+	}
+	
+	/**
+	 * Determine if a value is a String
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a String, otherwise false
+	 */
+	function isString(val) {
+	  return typeof val === 'string';
+	}
+	
+	/**
+	 * Determine if a value is a Number
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a Number, otherwise false
+	 */
+	function isNumber(val) {
+	  return typeof val === 'number';
+	}
+	
+	/**
+	 * Determine if a value is undefined
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if the value is undefined, otherwise false
+	 */
+	function isUndefined(val) {
+	  return typeof val === 'undefined';
+	}
+	
+	/**
+	 * Determine if a value is an Object
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is an Object, otherwise false
+	 */
+	function isObject(val) {
+	  return val !== null && typeof val === 'object';
+	}
+	
+	/**
+	 * Determine if a value is a Date
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a Date, otherwise false
+	 */
+	function isDate(val) {
+	  return toString.call(val) === '[object Date]';
+	}
+	
+	/**
+	 * Determine if a value is a File
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a File, otherwise false
+	 */
+	function isFile(val) {
+	  return toString.call(val) === '[object File]';
+	}
+	
+	/**
+	 * Determine if a value is a Blob
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is a Blob, otherwise false
+	 */
+	function isBlob(val) {
+	  return toString.call(val) === '[object Blob]';
+	}
+	
+	/**
+	 * Trim excess whitespace off the beginning and end of a string
+	 *
+	 * @param {String} str The String to trim
+	 * @returns {String} The String freed of excess whitespace
+	 */
+	function trim(str) {
+	  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+	}
+	
+	/**
+	 * Determine if a value is an Arguments object
+	 *
+	 * @param {Object} val The value to test
+	 * @returns {boolean} True if value is an Arguments object, otherwise false
+	 */
+	function isArguments(val) {
+	  return toString.call(val) === '[object Arguments]';
+	}
+	
+	/**
+	 * Determine if we're running in a standard browser environment
+	 *
+	 * This allows axios to run in a web worker, and react-native.
+	 * Both environments support XMLHttpRequest, but not fully standard globals.
+	 *
+	 * web workers:
+	 *  typeof window -> undefined
+	 *  typeof document -> undefined
+	 *
+	 * react-native:
+	 *  typeof document.createelement -> undefined
+	 */
+	function isStandardBrowserEnv() {
+	  return (
+	    typeof window !== 'undefined' &&
+	    typeof document !== 'undefined' &&
+	    typeof document.createElement === 'function'
+	  );
+	}
+	
+	/**
+	 * Iterate over an Array or an Object invoking a function for each item.
+	 *
+	 * If `obj` is an Array or arguments callback will be called passing
+	 * the value, index, and complete array for each item.
+	 *
+	 * If 'obj' is an Object callback will be called passing
+	 * the value, key, and complete object for each property.
+	 *
+	 * @param {Object|Array} obj The object to iterate
+	 * @param {Function} fn The callback to invoke for each item
+	 */
+	function forEach(obj, fn) {
+	  // Don't bother if no value provided
+	  if (obj === null || typeof obj === 'undefined') {
+	    return;
+	  }
+	
+	  // Check if obj is array-like
+	  var isArrayLike = isArray(obj) || isArguments(obj);
+	
+	  // Force an array if not already something iterable
+	  if (typeof obj !== 'object' && !isArrayLike) {
+	    obj = [obj];
+	  }
+	
+	  // Iterate over array values
+	  if (isArrayLike) {
+	    for (var i = 0, l = obj.length; i < l; i++) {
+	      fn.call(null, obj[i], i, obj);
+	    }
+	  }
+	  // Iterate over object keys
+	  else {
+	    for (var key in obj) {
+	      if (obj.hasOwnProperty(key)) {
+	        fn.call(null, obj[key], key, obj);
+	      }
+	    }
+	  }
+	}
+	
+	/**
+	 * Accepts varargs expecting each argument to be an object, then
+	 * immutably merges the properties of each object and returns result.
+	 *
+	 * When multiple objects contain the same key the later object in
+	 * the arguments list will take precedence.
+	 *
+	 * Example:
+	 *
+	 * ```js
+	 * var result = merge({foo: 123}, {foo: 456});
+	 * console.log(result.foo); // outputs 456
+	 * ```
+	 *
+	 * @param {Object} obj1 Object to merge
+	 * @returns {Object} Result of all merge properties
+	 */
+	function merge(/*obj1, obj2, obj3, ...*/) {
+	  var result = {};
+	  forEach(arguments, function (obj) {
+	    forEach(obj, function (val, key) {
+	      result[key] = val;
+	    });
+	  });
+	  return result;
+	}
+	
+	module.exports = {
+	  isArray: isArray,
+	  isArrayBuffer: isArrayBuffer,
+	  isFormData: isFormData,
+	  isArrayBufferView: isArrayBufferView,
+	  isString: isString,
+	  isNumber: isNumber,
+	  isObject: isObject,
+	  isUndefined: isUndefined,
+	  isDate: isDate,
+	  isFile: isFile,
+	  isBlob: isBlob,
+	  isStandardBrowserEnv: isStandardBrowserEnv,
+	  forEach: forEach,
+	  merge: merge,
+	  trim: trim
+	};
+
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	/**
+	 * Dispatch a request to the server using whichever adapter
+	 * is supported by the current environment.
+	 *
+	 * @param {object} config The config that is to be used for the request
+	 * @returns {Promise} The Promise to be fulfilled
+	 */
+	module.exports = function dispatchRequest(config) {
+	  return new Promise(function (resolve, reject) {
+	    try {
+	      // For browsers use XHR adapter
+	      if ((typeof XMLHttpRequest !== 'undefined') || (typeof ActiveXObject !== 'undefined')) {
+	        __webpack_require__(227)(resolve, reject, config);
+	      }
+	      // For node use HTTP adapter
+	      else if (typeof process !== 'undefined') {
+	        __webpack_require__(227)(resolve, reject, config);
+	      }
+	    } catch (e) {
+	      reject(e);
+	    }
+	  });
+	};
+	
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	/*global ActiveXObject:true*/
+	
+	var defaults = __webpack_require__(224);
+	var utils = __webpack_require__(225);
+	var buildUrl = __webpack_require__(228);
+	var parseHeaders = __webpack_require__(229);
+	var transformData = __webpack_require__(230);
+	
+	module.exports = function xhrAdapter(resolve, reject, config) {
+	  // Transform request data
+	  var data = transformData(
+	    config.data,
+	    config.headers,
+	    config.transformRequest
+	  );
+	
+	  // Merge headers
+	  var requestHeaders = utils.merge(
+	    defaults.headers.common,
+	    defaults.headers[config.method] || {},
+	    config.headers || {}
+	  );
+	
+	  if (utils.isFormData(data)) {
+	    delete requestHeaders['Content-Type']; // Let the browser set it
+	  }
+	
+	  // Create the request
+	  var request = new (XMLHttpRequest || ActiveXObject)('Microsoft.XMLHTTP');
+	  request.open(config.method.toUpperCase(), buildUrl(config.url, config.params), true);
+	
+	  // Set the request timeout in MS
+	  request.timeout = config.timeout;
+	
+	  // Listen for ready state
+	  request.onreadystatechange = function () {
+	    if (request && request.readyState === 4) {
+	      // Prepare the response
+	      var responseHeaders = parseHeaders(request.getAllResponseHeaders());
+	      var responseData = ['text', ''].indexOf(config.responseType || '') !== -1 ? request.responseText : request.response;
+	      var response = {
+	        data: transformData(
+	          responseData,
+	          responseHeaders,
+	          config.transformResponse
+	        ),
+	        status: request.status,
+	        statusText: request.statusText,
+	        headers: responseHeaders,
+	        config: config
+	      };
+	
+	      // Resolve or reject the Promise based on the status
+	      (request.status >= 200 && request.status < 300 ?
+	        resolve :
+	        reject)(response);
+	
+	      // Clean up request
+	      request = null;
+	    }
+	  };
+	
+	  // Add xsrf header
+	  // This is only done if running in a standard browser environment.
+	  // Specifically not if we're in a web worker, or react-native.
+	  if (utils.isStandardBrowserEnv()) {
+	    var cookies = __webpack_require__(231);
+	    var urlIsSameOrigin = __webpack_require__(232);
+	
+	    // Add xsrf header
+	    var xsrfValue = urlIsSameOrigin(config.url) ?
+	        cookies.read(config.xsrfCookieName || defaults.xsrfCookieName) :
+	        undefined;
+	
+	    if (xsrfValue) {
+	      requestHeaders[config.xsrfHeaderName || defaults.xsrfHeaderName] = xsrfValue;
+	    }
+	  }
+	
+	  // Add headers to the request
+	  utils.forEach(requestHeaders, function (val, key) {
+	    // Remove Content-Type if data is undefined
+	    if (!data && key.toLowerCase() === 'content-type') {
+	      delete requestHeaders[key];
+	    }
+	    // Otherwise add header to the request
+	    else {
+	      request.setRequestHeader(key, val);
+	    }
+	  });
+	
+	  // Add withCredentials to request if needed
+	  if (config.withCredentials) {
+	    request.withCredentials = true;
+	  }
+	
+	  // Add responseType to request if needed
+	  if (config.responseType) {
+	    try {
+	      request.responseType = config.responseType;
+	    } catch (e) {
+	      if (request.responseType !== 'json') {
+	        throw e;
+	      }
+	    }
+	  }
+	
+	  if (utils.isArrayBuffer(data)) {
+	    data = new DataView(data);
+	  }
+	
+	  // Send the request
+	  request.send(data);
+	};
+
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var utils = __webpack_require__(225);
+	
+	function encode(val) {
+	  return encodeURIComponent(val).
+	    replace(/%40/gi, '@').
+	    replace(/%3A/gi, ':').
+	    replace(/%24/g, '$').
+	    replace(/%2C/gi, ',').
+	    replace(/%20/g, '+').
+	    replace(/%5B/gi, '[').
+	    replace(/%5D/gi, ']');
+	}
+	
+	/**
+	 * Build a URL by appending params to the end
+	 *
+	 * @param {string} url The base of the url (e.g., http://www.google.com)
+	 * @param {object} [params] The params to be appended
+	 * @returns {string} The formatted url
+	 */
+	module.exports = function buildUrl(url, params) {
+	  if (!params) {
+	    return url;
+	  }
+	
+	  var parts = [];
+	
+	  utils.forEach(params, function (val, key) {
+	    if (val === null || typeof val === 'undefined') {
+	      return;
+	    }
+	
+	    if (utils.isArray(val)) {
+	      key = key + '[]';
+	    }
+	
+	    if (!utils.isArray(val)) {
+	      val = [val];
+	    }
+	
+	    utils.forEach(val, function (v) {
+	      if (utils.isDate(v)) {
+	        v = v.toISOString();
+	      }
+	      else if (utils.isObject(v)) {
+	        v = JSON.stringify(v);
+	      }
+	      parts.push(encode(key) + '=' + encode(v));
+	    });
+	  });
+	
+	  if (parts.length > 0) {
+	    url += (url.indexOf('?') === -1 ? '?' : '&') + parts.join('&');
+	  }
+	
+	  return url;
+	};
+
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var utils = __webpack_require__(225);
+	
+	/**
+	 * Parse headers into an object
+	 *
+	 * ```
+	 * Date: Wed, 27 Aug 2014 08:58:49 GMT
+	 * Content-Type: application/json
+	 * Connection: keep-alive
+	 * Transfer-Encoding: chunked
+	 * ```
+	 *
+	 * @param {String} headers Headers needing to be parsed
+	 * @returns {Object} Headers parsed into an object
+	 */
+	module.exports = function parseHeaders(headers) {
+	  var parsed = {}, key, val, i;
+	
+	  if (!headers) { return parsed; }
+	
+	  utils.forEach(headers.split('\n'), function(line) {
+	    i = line.indexOf(':');
+	    key = utils.trim(line.substr(0, i)).toLowerCase();
+	    val = utils.trim(line.substr(i + 1));
+	
+	    if (key) {
+	      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+	    }
+	  });
+	
+	  return parsed;
+	};
+
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var utils = __webpack_require__(225);
+	
+	/**
+	 * Transform the data for a request or a response
+	 *
+	 * @param {Object|String} data The data to be transformed
+	 * @param {Array} headers The headers for the request or response
+	 * @param {Array|Function} fns A single function or Array of functions
+	 * @returns {*} The resulting transformed data
+	 */
+	module.exports = function transformData(data, headers, fns) {
+	  utils.forEach(fns, function (fn) {
+	    data = fn(data, headers);
+	  });
+	
+	  return data;
+	};
+
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	/**
+	 * WARNING:
+	 *  This file makes references to objects that aren't safe in all environments.
+	 *  Please see lib/utils.isStandardBrowserEnv before including this file.
+	 */
+	
+	var utils = __webpack_require__(225);
+	
+	module.exports = {
+	  write: function write(name, value, expires, path, domain, secure) {
+	    var cookie = [];
+	    cookie.push(name + '=' + encodeURIComponent(value));
+	
+	    if (utils.isNumber(expires)) {
+	      cookie.push('expires=' + new Date(expires).toGMTString());
+	    }
+	
+	    if (utils.isString(path)) {
+	      cookie.push('path=' + path);
+	    }
+	
+	    if (utils.isString(domain)) {
+	      cookie.push('domain=' + domain);
+	    }
+	
+	    if (secure === true) {
+	      cookie.push('secure');
+	    }
+	
+	    document.cookie = cookie.join('; ');
+	  },
+	
+	  read: function read(name) {
+	    var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+	    return (match ? decodeURIComponent(match[3]) : null);
+	  },
+	
+	  remove: function remove(name) {
+	    this.write(name, '', Date.now() - 86400000);
+	  }
+	};
+
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	/**
+	 * WARNING:
+	 *  This file makes references to objects that aren't safe in all environments.
+	 *  Please see lib/utils.isStandardBrowserEnv before including this file.
+	 */
+	
+	var utils = __webpack_require__(225);
+	var msie = /(msie|trident)/i.test(navigator.userAgent);
+	var urlParsingNode = document.createElement('a');
+	var originUrl;
+	
+	/**
+	 * Parse a URL to discover it's components
+	 *
+	 * @param {String} url The URL to be parsed
+	 * @returns {Object}
+	 */
+	function urlResolve(url) {
+	  var href = url;
+	
+	  if (msie) {
+	    // IE needs attribute set twice to normalize properties
+	    urlParsingNode.setAttribute('href', href);
+	    href = urlParsingNode.href;
+	  }
+	
+	  urlParsingNode.setAttribute('href', href);
+	
+	  // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+	  return {
+	    href: urlParsingNode.href,
+	    protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+	    host: urlParsingNode.host,
+	    search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+	    hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+	    hostname: urlParsingNode.hostname,
+	    port: urlParsingNode.port,
+	    pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+	              urlParsingNode.pathname :
+	              '/' + urlParsingNode.pathname
+	  };
+	}
+	
+	originUrl = urlResolve(window.location.href);
+	
+	/**
+	 * Determine if a URL shares the same origin as the current location
+	 *
+	 * @param {String} requestUrl The URL to test
+	 * @returns {boolean} True if URL shares the same origin, otherwise false
+	 */
+	module.exports = function urlIsSameOrigin(requestUrl) {
+	  var parsed = (utils.isString(requestUrl)) ? urlResolve(requestUrl) : requestUrl;
+	  return (parsed.protocol === originUrl.protocol &&
+	        parsed.host === originUrl.host);
+	};
+
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var utils = __webpack_require__(225);
+	
+	function InterceptorManager() {
+	  this.handlers = [];
+	}
+	
+	/**
+	 * Add a new interceptor to the stack
+	 *
+	 * @param {Function} fulfilled The function to handle `then` for a `Promise`
+	 * @param {Function} rejected The function to handle `reject` for a `Promise`
+	 *
+	 * @return {Number} An ID used to remove interceptor later
+	 */
+	InterceptorManager.prototype.use = function (fulfilled, rejected) {
+	  this.handlers.push({
+	    fulfilled: fulfilled,
+	    rejected: rejected
+	  });
+	  return this.handlers.length - 1;
+	};
+	
+	/**
+	 * Remove an interceptor from the stack
+	 *
+	 * @param {Number} id The ID that was returned by `use`
+	 */
+	InterceptorManager.prototype.eject = function (id) {
+	  if (this.handlers[id]) {
+	    this.handlers[id] = null;
+	  }
+	};
+	
+	/**
+	 * Iterate over all the registered interceptors
+	 *
+	 * This method is particularly useful for skipping over any
+	 * interceptors that may have become `null` calling `remove`.
+	 *
+	 * @param {Function} fn The function to call for each interceptor
+	 */
+	InterceptorManager.prototype.forEach = function (fn) {
+	  utils.forEach(this.handlers, function (h) {
+	    if (h !== null) {
+	      fn(h);
+	    }
+	  });
+	};
+	
+	module.exports = InterceptorManager;
+
+
+/***/ },
+/* 234 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	/**
+	 * Syntactic sugar for invoking a function and expanding an array for arguments.
+	 *
+	 * Common use case would be to use `Function.prototype.apply`.
+	 *
+	 *  ```js
+	 *  function f(x, y, z) {}
+	 *  var args = [1, 2, 3];
+	 *  f.apply(null, args);
+	 *  ```
+	 *
+	 * With `spread` this example can be re-written.
+	 *
+	 *  ```js
+	 *  spread(function(x, y, z) {})([1, 2, 3]);
+	 *  ```
+	 *
+	 * @param {Function} callback
+	 * @returns {Function}
+	 */
+	module.exports = function spread(callback) {
+	  return function (arr) {
+	    return callback.apply(null, arr);
+	  };
+	};
 
 
 /***/ }

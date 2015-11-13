@@ -9,27 +9,16 @@ const getUserInfo = (username) => {
 };
 
 
-// const helpers = {
-//     getGithubInfo(username) {
-//         return axios.all([getRepos(username), getUserInfo(username)])
-//             .then(function transferDataOut([ repos, bio ]) {
-//                 return {
-//                     repos: repos.data,
-//                     bio: bio.data
-//                 };
-//             });
-//     }
-// };
-
-var helpers = {
-  getGithubInfo(username){
-    return axios.all([getRepos(username), getUserInfo(username)])
-      .then((arr) => {
-        return {
-          repos: arr[0].data,
-          bio: arr[1].data
-        };
-      });
-  }
+const helpers = {
+    getGithubInfo(username) {
+        return axios.all([getRepos(username), getUserInfo(username)])
+            .then(function transferDataOut([ repos, bio ]) {
+                return {
+                    repos: repos.data,
+                    bio: bio.data
+                };
+            });
+    }
 };
+
 export default helpers;

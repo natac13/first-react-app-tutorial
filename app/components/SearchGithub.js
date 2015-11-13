@@ -4,7 +4,7 @@ const SearchGithub = createClass({
 
     handleSubmit() {
         // https://github.com/rackt/react-router/blob/master/docs/API.md#history-mixin
-        const {history} = this.props;
+        const { history } = this.props;
         const username = this.refs.username.value;
         // https://github.com/rackt/history/blob/master/docs/GettingStarted.md#navigation
         history.pushState(null, `profile/${username}`);

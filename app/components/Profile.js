@@ -39,17 +39,22 @@ const Profile = createClass({
 
         // Able to get the normal Firebase way to work by changing .bindAsArray()
         // to .bindAsObject()!!!
+        //
+        // NOT REALLY working since it changes the state to an object I think.
         // this.ref = new Firebase('https://resplendent-heat-8246.firebaseio.com/');
         // const childRef = this.ref.child(username);
         // this.bindAsObject(childRef, 'notes');
 
 
-
+        /**
+         * getGithubInfo returns an object with 2 properties which I use
+         * destructuring for the function params.
+         */
         helpers.getGithubInfo(username)
-            .then((dataObj) => {
+            .then(({ repos, bio }) => {
                 this.setState({
-                    bio: dataObj.bio,
-                    repos: dataObj.repos
+                    bio: bio,
+                    repos: repos
                 });
             });
     },
