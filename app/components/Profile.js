@@ -3,13 +3,16 @@ import Rebase                   from 're-base';
 import Firebase                 from 'firebase';
 import ReactFireMixin           from 'reactfire';
 
+/*** components ***/
+import UserProfile              from './Github/UserProfile';
+import Repos                    from './Github/Repos';
+import Notes                    from './Notes/Notes';
 
-import UserProfile from './Github/UserProfile';
-import Repos       from './Github/Repos';
-import Notes       from './Notes/Notes';
+/*** API helper ***/
+import helpers        from '../utils/helpers';
 
 
-// var base = Rebase.createClass('https://resplendent-heat-8246.firebaseio.com/');
+var base = Rebase.createClass('https://resplendent-heat-8246.firebaseio.com/');
 
 
 
@@ -19,35 +22,53 @@ const Profile = createClass({
         return {
             notes: [],
             bio: {},
-            repos: [1, 2, 3]
+            repos: [1]
         };
     },
 
-
-
-    componentDidMount() {
+    init() {
         const { username } = this.props.params;
         // will bind the notes property to the notes from Firebase base off the
         // username.
-        // this.ref = base.bindToState(username, {
-        //     context: this,
-        //     asArray: true,
-        //     state: 'notes'
-        // });
+        this.ref = base.bindToState(username, {
+            context: this,
+            asArray: true,
+            state: 'notes'
+        });
 
 
         // Able to get the normal Firebase way to work by changing .bindAsArray()
         // to .bindAsObject()!!!
-        this.ref = new Firebase('https://resplendent-heat-8246.firebaseio.com/');
-        const childRef = this.ref.child(username);
-        this.bindAsObject(childRef, 'notes');
-        console.log(this.state.notes);
+        // this.ref = new Firebase('https://resplendent-heat-8246.firebaseio.com/');
+        // const childRef = this.ref.child(username);
+        // this.bindAsObject(childRef, 'notes');
+
+
+        console.log(this.state.repos);
+
+        helpers.getGithubInfo(username)
+            .then((dataObj) => {
+                console.log(dataObj.repos);
+                this.setState({
+                    bio: dataObj.bio,
+                    repos: dataObj.repos
+                });
+                console.log(`state ${this.state.bio}`);
+            });
     },
 
+    componentDidMount() {
+        this.init();
+    },
 
     componentWillUnmount() {
-        // base.removeBinding(this.ref);
-        this.unbind('notes');
+        base.removeBinding(this.ref);
+        // this.unbind('notes');
+    },
+
+    componentWillReceiveProps(){
+        base.removeBinding(this.ref);
+        this.init();
     },
 
     /**
@@ -58,8 +79,12 @@ const Profile = createClass({
      * refs on the HTML tag and using this.refs.whatever.value to get the value
      */
     handleAddNote(newNote) {
-        this.ref.child(this.props.params.username)
-            .set(this.state.notes.concat([newNote]));
+        // this.ref.child(this.props.params.username)
+        //     .set(this.state.notes.concat([newNote]));
+        const {username} = this.props.params;
+        base.post(username, {
+            data: this.state.notes.concat([newNote])
+        });
     },
 
 

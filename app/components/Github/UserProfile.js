@@ -14,7 +14,7 @@ const UserProfile = createClass({
         return (
             <div className="">
                 <h1> {this.props.username} </h1>
-                {this.props.bio.name}
+                {this.props.bio.login}
             </div>
         );
     }

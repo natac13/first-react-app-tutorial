@@ -12,7 +12,7 @@ const Notes = createClass({
     render() {
         // NotesList component handles the styling and li elements
         return (
-            <div className="">
+            <div >
                 <h2>Notes For: {this.props.username} </h2>
                 <AddNote addNote={this.props.addNote} username={this.props.username}/>
                 <NotesList notes={this.props.notes} />
